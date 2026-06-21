@@ -47,8 +47,10 @@ def create():
 
 @app.route("/gallery")
 def gallery():
-    reels = os.listdir("static/reels")
-    print(reels)
+    reels = [
+        reel for reel in os.listdir("static/reels")
+        if reel.endswith(".mp4")
+    ]
     return render_template("gallery.html", reels=reels)
 
 app.run(debug=True)

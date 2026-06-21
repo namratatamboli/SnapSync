@@ -25,10 +25,16 @@ if __name__ == "__main__":
         done_folders = [f.strip() for f in done_folders]
         folders = os.listdir("user_uploads")
         for folder in folders:
-            if(folder not in done_folders):               
-                text_to_audio(folder)# converts desc.txt to  audio.mp3
-                create_reel(folder)# converts images and audio.mp3 to reels
-                with open("done.txt", "a")  as f :
+            folder_path = os.path.join("user_uploads", folder)
+
+            if not os.path.isdir(folder_path):
+                continue
+
+            if folder not in done_folders:
+                text_to_audio(folder)
+                create_reel(folder)
+
+                with open("done.txt", "a") as f:
                     f.write(folder + "\n")
         time.sleep(5)
 
